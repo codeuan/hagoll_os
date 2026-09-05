@@ -112,11 +112,14 @@ impl Writer {
         }
     }
 }
-impl fmt::Write for Writer { //metaphorically, it is as if we are entering a room and writing on a piece of paper. The fmt::Write trait allows us to write formatted text to a buffer, which in this case is the VGA buffer.
+
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
         self.write_string(s);
-        Ok(()) 
+        Ok(())
     }
 }
+
 //daisy, daisy, give me your answer do. I'm half crazy all for the love of you. It won't be a stylish marriage, I can't afford a carriage. But you'll look sweet upon the seat of a bicycle built for two.    
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
